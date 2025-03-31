@@ -372,18 +372,30 @@ def consolidate_similar_entries(data, output_dir):
             continue
 
         # Prepare the user prompt
-        user_prompt = f"""Please analyze the following list of {category} from customer feedback and group together 
-        items that express the same or very similar sentiments. For each group, create a consolidated 
-        entry with a representative phrase that best captures the group's meaning and sum their counts.
-
-        Return ONLY a JSON dictionary where keys are the consolidated phrases and values are the summed counts.
+        user_prompt = f"""Please analyze the following list of {category} passed as a JSON dictionary. 
+        Each key represents a comment from customers regarding the services from their payments gateway provider.
+        The key's corresponding value represents the count of customers that made such (or a similar) comment. 
+        Please group together comments that express the same or very similar sentiments, by creating a consolidated 
+        comment using a representative phrase that best captures the grouped comments meaning.
+         
+        It is very important that you sum the counts of the grouped comments and assign the result as the
+        count of the consolidated comment. e.g. if the data includes the comments
+        
+        "Hidden fees and unexpected charges": 10,
+        "I was charged unexpected charges and fees": 10,
+        
+        then you should consolidate this comment and output something like 
+        
+        "Hidden fees and unexpected charges": 20
+        
+        Return ONLY a JSON dictionary where keys are the consolidated comments and values the corresponding summed counts.
         Do not include any additional commentary or explanation.
 
         Here is the input data:
         {json.dumps(data[category], indent=2)}
         """
-        single_prompt = final_prompt = f"{system_prompt}\n\n{user_prompt}"
-
+        single_prompt = final_prompt = f"{system_prompt}\n\n{user_prompt}\n"
+        print(single_prompt)
         if first_call:
             log_dir = output_dir
         else:
@@ -393,20 +405,20 @@ def consolidate_similar_entries(data, output_dir):
         try:
             # Call the LLM
             raw_response = get_llm_response(
-                single_prompt,
-                None,
-                # {
+                user_prompt,
+                system_prompt,
+                {
                 #     "temperature": 0.7,
                 #     "max_tokens": 1000,
-                #     "response_format": "json_object",
+                     "response_format": "json_object"
                 #     "top_p": 1,
                 #     "frequency_penalty": 0.0,
                 #     "presence_penalty": 0.0
-                # },
+                },
                 log_dir
             )
 
-            filename = generate_next_filename(output_dir, "reasoner_model_def_params")
+            filename = generate_next_filename(output_dir, "llm_response_def_params")
             # Save raw responses immediately
             with open(filename, "w", encoding="utf-8") as file:
                 file.write(raw_response)
@@ -423,7 +435,7 @@ def consolidate_similar_entries(data, output_dir):
 
     print_as_json(consolidated)
     
-    save_dict_to_txt(consolidated, output_dir, "consolidated_reviews_reasoner")
+    save_dict_to_txt(consolidated, output_dir, "consolidated_reviews_def_params")
 
 
 # Define your main function
@@ -434,14 +446,13 @@ def main():
     # Create reviews batches
     batches = load_reviews("trustpilot_reviews.json", 80)
     # Print total number of batches
-    print(f"Number of batches: {len(batches)}")
+    print(f"Number of batches: {len(batches)}\n")
     # Print a limited number of batches and items per batch for visual exploration
     #print_batches(batches, 5, 5)
-    print()
     # Process the batches and save the responses
     #process_batches(batches, batch_dir, 4)
     # Load the responses and add up similar points
-    aggregates = aggregate_similar_points(batch_dir)
+    aggregates = aggregate_similar_points("llm_responses")
     # Print the points and their count
     print_as_json(aggregates)
     # save aggregated reviews
