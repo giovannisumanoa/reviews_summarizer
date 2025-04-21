@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import inspect
 from collections import Counter
 from collections import defaultdict
 from typing import Optional, Dict, Any
@@ -17,6 +18,9 @@ LLM_MODEL = "deepseek-chat"
 
 client = OpenAI(api_key=LLM_API_KEY, base_url=LLM_BASE_URL)
 
+def debug_print(message):
+    caller = inspect.stack()[1].function
+    print(f"{caller}: {message}")
 
 def log_info(info: str, log_dir: str):
     """
@@ -122,7 +126,7 @@ def print_as_json(data, indent=4, ensure_ascii=False, sort_keys=False):
     ))
 
 def load_reviews(file_path, batch_size=500):
-    """Loads reviews from JSON and chunks them into batches of 500."""
+    """Loads reviews from JSON and chunks them into batches of number specified in batch_size."""
     with open(file_path, 'r', encoding='utf-8') as f:
         reviews = json.load(f)
 
@@ -131,6 +135,8 @@ def load_reviews(file_path, batch_size=500):
 
     # Chunk into batches of 500 reviews each
     batches = [review_texts[i:i + batch_size] for i in range(0, len(review_texts), batch_size)]
+
+    debug_print("test")
 
     return batches
 
@@ -222,25 +228,42 @@ def generate_next_filename(folder, base_name):
 
 def analyze_reviews(review_batch, output_dir, base_name="raw_llm_response"):
     """Asks LLM to analyze likes, dislikes, and suggestions in the reviews and counting similar points and saves results."""
-    system_prompt = "You are a helpful assistant"
+    system_prompt = "You are a helpful customer reviews analyst"
     user_prompt = f"""
-    Analyze these customer reviews of a payments gateway company and extract:
+    The product department of a payments gateway company wishes to analyze the reviews from
+    customers to find what they like, dislike, and get feedback for improvements to maximize 
+    the value of their products and services. Your task is to help with this task
+    
+    Please perform the following steps:
+    1. Analyze the customer reviews delimited by triple backticks and extract:
     - What customers like (Pros)
     - What customers dislike (Cons)
     - Suggestions for improvement or new features
 
-    Reviews:
-    {chr(10).join(review_batch)}
+    2. Create categories to group similar points. e.g. "Excellent customer service"
+    
+    3. Group similar points in to the relevant category and count the number of points 
+    you have grouped into each category
 
     Format your response in strict JSON format, ensuring that similar points are grouped and counted:
     {{
-      "pros": {{"Point 1": count, "Point 2": count}},
-      "cons": {{"Point 1": count, "Point 2": count}},
-      "suggestions": {{"Point 1": count, "Point 2": count}}
+      "pros": {{"Category 1": count, "Category 2": count}},
+      "cons": {{"Category 1": count, "Category 2": count}},
+      "suggestions": {{"Category": count, "Category": count}}
     }}
+              
+    Reviews:
+    ```{chr(10).join(review_batch)}```
+    
     """
 
-    raw_response = get_llm_response(system_prompt, user_prompt)
+    raw_response = get_llm_response(
+        user_prompt,
+        system_prompt,
+        {
+            "temperature": 0.0
+        }
+    )
 
     # Save raw response to a new uniquely named file in the specified folder
     filename = generate_next_filename(output_dir, base_name)
@@ -260,7 +283,7 @@ def process_batches(batches, output_dir, num_batches=0):
         analyze_reviews(batch, output_dir)
 
 def aggregate_similar_points(folder):
-    """Reads raw response files, extracts structured data, and consolidates summaries."""
+    """Reads raw response files, extracts structured data, and aggregates similar points."""
     all_pros = Counter()
     all_cons = Counter()
     all_suggestions = Counter()
@@ -358,10 +381,7 @@ def consolidate_similar_entries(data, output_dir):
     """
 
     # Define system and user prompts as separate variables
-    system_prompt = """You are a customer feedback analyst specializing in semantic grouping. 
-    Your task is to identify phrases that convey identical or nearly identical meanings, 
-    then combine them by selecting the clearest phrasing and summing their counts.
-    Always return perfect JSON without additional commentary."""
+    system_prompt = """You are a customer feedback analyst specializing in semantic grouping."""
 
     consolidated = {"pros": {}, "cons": {}, "suggestions": {}}
 
@@ -372,30 +392,42 @@ def consolidate_similar_entries(data, output_dir):
             continue
 
         # Prepare the user prompt
-        user_prompt = f"""Please analyze the following list of {category} passed as a JSON dictionary. 
-        Each key represents a comment from customers regarding the services from their payments gateway provider.
-        The key's corresponding value represents the count of customers that made such (or a similar) comment. 
-        Please group together comments that express the same or very similar sentiments, by creating a consolidated 
-        comment using a representative phrase that best captures the grouped comments meaning.
-         
-        It is very important that you sum the counts of the grouped comments and assign the result as the
-        count of the consolidated comment. e.g. if the data includes the comments
-        
-        "Hidden fees and unexpected charges": 10,
-        "I was charged unexpected charges and fees": 10,
-        
-        then you should consolidate this comment and output something like 
-        
-        "Hidden fees and unexpected charges": 20
-        
-        Return ONLY a JSON dictionary where keys are the consolidated comments and values the corresponding summed counts.
-        Do not include any additional commentary or explanation.
+        user_prompt = f"""
 
-        Here is the input data:
+        The product department of a payments gateway company wishes to analyze the reviews from
+        customers to find what they like, dislike, and get feedback for improvements to maximize 
+        the value of their products and services. 
+            
+        Analyze the following JSON dictionary of customer feedback about the company (delimited by triple backticks). 
+        
+        **Task:**
+        1. **Group comments** with roughly similar meaning. try to minimize number of groups as long as it makes sense.
+            (if possible try to keep the number of groups below 40) 
+        2. For each group, **create a representative phrase** that best captures the shared meaning.
+        3. **Sum the counts** of grouped comments and assign the total to the representative phrase.
+        4. Return **ONLY a JSON dictionary** with the structure:  
+           `{{"representative_phrase": summed_count}}`
+        
+        **Rules:**
+        - **Never include explanations**, metadata, or ungrouped comments.
+        - **Preserve JSON syntax** exactly (no trailing commas, etc.).
+        
+        **Example Input:**
+        {{
+          "Opaque fees and charges": 10,
+          "I was charged unexpected fees": 10
+        }}
+        **Example Output:**
+        {{
+          "Hidden fees and unexpected charges": 20
+        }}        
+        **Input data:**
+        ```
         {json.dumps(data[category], indent=2)}
+        ```
         """
-        single_prompt = final_prompt = f"{system_prompt}\n\n{user_prompt}\n"
-        print(single_prompt)
+
+        # Only log request for first call
         if first_call:
             log_dir = output_dir
         else:
@@ -408,7 +440,7 @@ def consolidate_similar_entries(data, output_dir):
                 user_prompt,
                 system_prompt,
                 {
-                #     "temperature": 0.7,
+                     "temperature": 0.0,
                 #     "max_tokens": 1000,
                      "response_format": "json_object"
                 #     "top_p": 1,
@@ -418,7 +450,7 @@ def consolidate_similar_entries(data, output_dir):
                 log_dir
             )
 
-            filename = generate_next_filename(output_dir, "llm_response_def_params")
+            filename = generate_next_filename(output_dir, "llm_response")
             # Save raw responses immediately
             with open(filename, "w", encoding="utf-8") as file:
                 file.write(raw_response)
@@ -433,32 +465,74 @@ def consolidate_similar_entries(data, output_dir):
             print(f"Error processing {category}: {str(e)}")
             #consolidated[category] = data[category]  # Fallback to original if error occurs
 
-    print_as_json(consolidated)
+    #print_as_json(consolidated)
     
-    save_dict_to_txt(consolidated, output_dir, "consolidated_reviews_def_params")
+    save_dict_to_txt(consolidated, output_dir, "consolidated_reviews")
 
+    sort_and_print_reviews(consolidated)
+
+
+def sort_and_print_reviews(reviews_data):
+    # Process each category
+    for category, items in reviews_data.items():
+        # Sort items by value (count) in descending order
+        sorted_items = sorted(items.items(), key=lambda x: x[1], reverse=True)
+
+        # Print category header
+        print(f"\n{category.upper()}:")
+        print("-" * (len(category) + 1))  # Underline matching header length
+
+        # Print each item with its count
+        for item, count in sorted_items:
+            print(f"{count:>4} | {item}")
+
+        # Print total count for the category
+        total = sum(items.values())
+        print(f"\nTotal {category}: {total}\n")
 
 # Define your main function
 def main():
+
+    #Generate folder name based on current date
     run_dir = generate_folder_name()
+
+    # Watch out, comment when necessary
+    #run_dir = "2025-04-16_22-41"
+
+    #Create folder name where llm responses will be saved
     batch_dir = os.path.join("llm_responses", run_dir)
+
+    # Create folder name where consolidates llm responses will be saved
     consolidated_dir = os.path.join("consolidated_responses", run_dir)
+
     # Create reviews batches
-    batches = load_reviews("trustpilot_reviews.json", 80)
+    batches = load_reviews("trustpilot_reviews_since_2022.json", 80)
+
     # Print total number of batches
     print(f"Number of batches: {len(batches)}\n")
+
     # Print a limited number of batches and items per batch for visual exploration
-    #print_batches(batches, 5, 5)
+    print_batches(batches, 3, 5)
+
     # Process the batches and save the responses
-    #process_batches(batches, batch_dir, 4)
-    # Load the responses and add up similar points
-    aggregates = aggregate_similar_points("llm_responses")
+    #process_batches(batches, batch_dir)
+
+    # Load the responses and aggregates similar points
+    # could modify to save sorted
+    aggregates = aggregate_similar_points(os.path.join("llm_responses", "2025-04-16_22-41"))
+
     # Print the points and their count
     print_as_json(aggregates)
+
     # save aggregated reviews
     save_dict_to_txt(aggregates, batch_dir, "aggregated_reviews")
+
+    # Load the responses and without aggregating similar points (better to use aggregate_similar_points() above"
     #result_grouped = group_reviews(batch_dir)
     #print_as_json(result_grouped)
+
+    #This function is a bit messy and need to be refactored, but it'll do for now
+    #including need to load from file
     consolidate_similar_entries(aggregates, consolidated_dir)
 
 # Call main() at the bottom
