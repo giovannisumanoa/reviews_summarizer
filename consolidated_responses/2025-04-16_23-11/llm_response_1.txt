@@ -1,0 +1,17 @@
+{
+  "Excellent customer service and support": 813,
+  "Efficient and professional service": 103,
+  "Competitive pricing and rates": 162,
+  "Quick and efficient problem resolution": 45,
+  "Helpful and knowledgeable staff": 277,
+  "Smooth and easy onboarding process": 89,
+  "Reliable and secure payment processing": 38,
+  "Professional and friendly staff interactions": 133,
+  "Responsive and clear communication": 92,
+  "Personalized and attentive customer service": 34,
+  "User-friendly platform and technology": 10,
+  "Innovative solutions and features": 8,
+  "Good value and competitive deals": 5,
+  "Positive long-term customer relationships": 9,
+  "High level of professionalism and service quality": 5
+}

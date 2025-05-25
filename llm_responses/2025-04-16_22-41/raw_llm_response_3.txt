@@ -1,0 +1,30 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 30,
+    "Professional and efficient service": 15,
+    "Quick and clear communication": 10,
+    "Helpful and knowledgeable staff": 12,
+    "Easy setup and process": 5,
+    "Great rates and cost savings": 8,
+    "Reliable and consistent service": 4,
+    "Friendly and approachable staff": 6,
+    "Swift problem resolution": 7,
+    "Informative and helpful explanations": 5
+  },
+  "cons": {
+    "Slow setup and initial issues": 3,
+    "Poor communication or delays": 4,
+    "Technical issues with terminals or portal": 3,
+    "Billing and account management problems": 4,
+    "Unresolved issues and lack of follow-up": 3
+  },
+  "suggestions": {
+    "Improve communication and information flow": 2,
+    "Enhance technical support and portal functionality": 2,
+    "Better follow-up and issue resolution": 2,
+    "More staff like top performers (e.g., Tom Baines)": 1,
+    "Streamline account and billing processes": 2
+  }
+}
+```

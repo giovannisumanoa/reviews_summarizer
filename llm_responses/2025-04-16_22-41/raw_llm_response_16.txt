@@ -1,0 +1,32 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 30,
+    "Competitive rates": 8,
+    "Quick and efficient service": 15,
+    "Helpful and knowledgeable staff": 20,
+    "Smooth onboarding/process": 10,
+    "Responsive and professional": 12,
+    "Good communication": 8,
+    "Fast transaction processing": 3,
+    "User-friendly technology": 2
+  },
+  "cons": {
+    "Poor after-sales service": 4,
+    "Unresponsive customer support": 3,
+    "High fees/increases": 5,
+    "Technical issues with equipment": 2,
+    "Delays in issue resolution": 3,
+    "Funds withholding issues": 1,
+    "Complex process for some services": 2
+  },
+  "suggestions": {
+    "Direct phone lines to account managers": 1,
+    "Express delivery options for equipment": 1,
+    "Better transparency in fee structures": 2,
+    "Improved fraud department processes": 1,
+    "Faster resolution for complaints": 1,
+    "More consistent customer service": 1
+  }
+}
+```

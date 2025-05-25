@@ -1,0 +1,47 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 30,
+    "Helpful and professional staff": 25,
+    "Quick and efficient service": 15,
+    "Clear communication": 10,
+    "Competitive rates": 8,
+    "Easy and smooth process": 12,
+    "Knowledgeable and informative staff": 10,
+    "Prompt response to queries": 8,
+    "Friendly and polite staff": 7,
+    "Reliable service": 6,
+    "Outstanding support": 5,
+    "Seamless onboarding": 4,
+    "Good aftercare service": 3,
+    "Fast resolution of issues": 3,
+    "High level of professionalism": 3,
+    "Excellent problem-solving": 2,
+    "Great asset to the company": 2,
+    "Thorough and patient": 2,
+    "Highly recommended": 2,
+    "Consistent service quality": 2
+  },
+  "cons": {
+    "Poor service": 1,
+    "Unhelpful staff": 1,
+    "Hidden charges": 1,
+    "Slow payment processing": 1,
+    "Unresolved issues": 1,
+    "Lack of follow-up": 1,
+    "Threats of debt collection": 1,
+    "Disappearing sales rep": 1,
+    "Non-responsive sales team": 1
+  },
+  "suggestions": {
+    "Improve documentation of charges": 1,
+    "Better follow-up from sales team": 1,
+    "Faster payment processing": 1,
+    "More transparent fee structure": 1,
+    "Better communication from sales team": 1,
+    "Resolve issues promptly": 1,
+    "Avoid hidden fees": 1,
+    "Improve sales team responsiveness": 1
+  }
+}
+```

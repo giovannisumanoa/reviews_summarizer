@@ -9,12 +9,19 @@ from typing import Optional, Dict, Any
 from datetime import datetime
 from openai import OpenAI, OpenAIError
 from tqdm import tqdm  # For progress bar
+from dotenv import load_dotenv
 
-LLM_BASE_URL = "https://api.deepseek.com"
-LLM_API_KEY = "sk-b49e0cc821cc41cea896e5fa21322c90"
-LLM_MODEL = "deepseek-chat"
-#LLM_MODEL = "deepseek-reasoner"
+# Load environment variables from .env file
+load_dotenv()
 
+# Retrieve environment variables
+LLM_API_KEY = os.getenv("LLM_API_KEY")
+LLM_BASE_URL = os.getenv("LLM_BASE_URL")
+LLM_MODEL = os.getenv("LLM_MODEL")
+
+# Validate that required environment variables are set
+if not all([LLM_API_KEY, LLM_BASE_URL, LLM_MODEL]):
+    raise ValueError("Missing required environment variables: LLM_API_KEY, LLM_BASE_URL, or LLM_MODEL")
 
 client = OpenAI(api_key=LLM_API_KEY, base_url=LLM_BASE_URL)
 
@@ -211,7 +218,7 @@ def extract_json(raw_response):
     return parsed_json
 
 def generate_next_filename(folder, base_name):
-    """Finds the next available filename in the sequence raw_llm_response_{idx}.txt inside the specified folder."""
+    """Finds the next available filename in the sequence {base_name}_{idx}.txt inside the specified folder."""
     os.makedirs(folder, exist_ok=True)  # Ensure the directory exists
     existing_files = [f for f in os.listdir(folder) if f.startswith(f"{base_name}_") and f.endswith(".txt")]
 
@@ -372,7 +379,7 @@ def save_dict_to_txt(data_dict, output_dir, file_name):
     print(f"Dictionary successfully saved to {file_path}")
 
 
-def consolidate_similar_entries(data, output_dir):
+def consolidate_results(data, output_dir):
     """
     Consolidates similar entries in a dictionary by grouping semantically similar keys and summing their values.
 
@@ -496,9 +503,6 @@ def main():
     #Generate folder name based on current date
     run_dir = generate_folder_name()
 
-    # Watch out, comment when necessary
-    #run_dir = "2025-04-16_22-41"
-
     #Create folder name where llm responses will be saved
     batch_dir = os.path.join("llm_responses", run_dir)
 
@@ -506,7 +510,7 @@ def main():
     consolidated_dir = os.path.join("consolidated_responses", run_dir)
 
     # Create reviews batches
-    batches = load_reviews("trustpilot_reviews_since_2022.json", 80)
+    batches = load_reviews("trustpilot_reviews.json", 80)
 
     # Print total number of batches
     print(f"Number of batches: {len(batches)}\n")
@@ -515,9 +519,9 @@ def main():
     print_batches(batches, 3, 5)
 
     # Process the batches and save the responses
-    #process_batches(batches, batch_dir)
+    process_batches(batches, batch_dir)
 
-    # Load the responses and aggregates similar points
+    # Load the responses and aggregates similar points (i.e. similar pros, cons or suggestions)
     # could modify to save sorted
     aggregates = aggregate_similar_points(os.path.join("llm_responses", "2025-04-16_22-41"))
 
@@ -527,13 +531,8 @@ def main():
     # save aggregated reviews
     save_dict_to_txt(aggregates, batch_dir, "aggregated_reviews")
 
-    # Load the responses and without aggregating similar points (better to use aggregate_similar_points() above"
-    #result_grouped = group_reviews(batch_dir)
-    #print_as_json(result_grouped)
-
-    #This function is a bit messy and need to be refactored, but it'll do for now
-    #including need to load from file
-    consolidate_similar_entries(aggregates, consolidated_dir)
+    # integrate the output of each batch into a unified result, merging similar points
+    consolidate_results(aggregates, consolidated_dir)
 
 # Call main() at the bottom
 if __name__ == "__main__":

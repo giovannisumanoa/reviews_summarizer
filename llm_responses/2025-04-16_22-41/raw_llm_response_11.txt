@@ -1,0 +1,36 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 28,
+    "Competitive rates/pricing": 8,
+    "Quick and efficient service": 12,
+    "Helpful and knowledgeable staff": 15,
+    "Smooth onboarding/transition process": 9,
+    "Reliable and secure service": 3,
+    "Prompt responses and communication": 7,
+    "Effective problem resolution": 5,
+    "Friendly and professional staff": 6,
+    "Good aftercare/support": 4
+  },
+  "cons": {
+    "Poor customer service": 4,
+    "Technical issues with equipment": 3,
+    "Delayed payments": 2,
+    "Disorganized service": 2,
+    "Lack of visibility/transparency": 2,
+    "Difficulty in communication": 2,
+    "Inconsistent service quality": 2,
+    "Dependency on client initiative for best rates": 1,
+    "No weekend payouts": 1
+  },
+  "suggestions": {
+    "Annual account reviews for best tariffs": 1,
+    "Include DDI telephone numbers in correspondence": 1,
+    "Improve weekend payout options": 1,
+    "Enhance technical support for equipment": 1,
+    "Better integration with till systems": 1,
+    "Improve terminal collection process": 1,
+    "Increase transparency in terminal management": 1
+  }
+}
+```

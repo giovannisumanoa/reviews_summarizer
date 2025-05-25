@@ -1,0 +1,29 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 32,
+    "Competitive pricing/rates": 10,
+    "Efficient and quick service": 15,
+    "Helpful and knowledgeable staff": 18,
+    "Smooth application/process": 8,
+    "Multi-currency support": 1,
+    "Quick problem resolution": 6,
+    "Friendly and professional staff": 7,
+    "Reliable and efficient system": 4,
+    "Great communication": 5
+  },
+  "cons": {
+    "Poor customer service": 2,
+    "Slow card machines": 1,
+    "High fees for small companies": 1,
+    "Machine failures/issues": 2,
+    "Incapable advisors": 1
+  },
+  "suggestions": {
+    "Improve machine reliability": 2,
+    "Enhance customer service training": 1,
+    "Lower fees for small businesses": 1,
+    "Better technical support": 1
+  }
+}
+```

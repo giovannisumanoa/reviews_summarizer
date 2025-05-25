@@ -1,0 +1,37 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 28,
+    "Competitive fees/rates": 6,
+    "Quick and efficient service": 12,
+    "Helpful and friendly staff": 15,
+    "Seamless transition/setup": 4,
+    "Same-day fund clearance": 2,
+    "User-friendly portal": 1,
+    "Professional and courteous staff": 5,
+    "Knowledgeable representatives": 3,
+    "Prompt issue resolution": 4
+  },
+  "cons": {
+    "Poor customer support": 3,
+    "Technical issues with card readers": 5,
+    "Delayed fund transfers": 2,
+    "Login/verification problems": 1,
+    "High/unexpected fees": 3,
+    "Chargeback system issues": 1,
+    "Lack of communication": 2,
+    "Incorrect account settings": 1,
+    "Unhelpful/rude staff": 2
+  },
+  "suggestions": {
+    "Improve technical support": 3,
+    "Enhance communication": 2,
+    "Transparent fee structure": 2,
+    "Better chargeback handling": 1,
+    "Fix login/verification issues": 1,
+    "Ensure timely fund transfers": 1,
+    "Provide more training for staff": 1,
+    "Improve card reader reliability": 2
+  }
+}
+```

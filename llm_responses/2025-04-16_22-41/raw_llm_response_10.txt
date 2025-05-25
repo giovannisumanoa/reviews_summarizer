@@ -1,0 +1,31 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 25,
+    "Quick and efficient service": 15,
+    "Helpful and knowledgeable staff": 12,
+    "Competitive rates/fees": 5,
+    "Smooth onboarding/transition process": 8,
+    "Responsive account managers": 10,
+    "Fast payment processing": 6,
+    "Professional and courteous staff": 7
+  },
+  "cons": {
+    "Poor customer service": 8,
+    "Account closure/issues": 3,
+    "Hidden fees/charges": 4,
+    "Late payments/failed promises": 6,
+    "Difficulties with PCI compliance": 2,
+    "Communication issues": 5,
+    "Technical/terminal issues": 3
+  },
+  "suggestions": {
+    "Improve transparency in fees": 4,
+    "Better communication/resolution of issues": 6,
+    "More efficient complaint handling": 5,
+    "Simplify PCI compliance requirements": 2,
+    "Reduce hidden charges": 3,
+    "Enhance customer support responsiveness": 4
+  }
+}
+```

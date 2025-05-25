@@ -1,0 +1,36 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 30,
+    "Efficient and professional staff": 18,
+    "Helpful and responsive support": 15,
+    "Competitive pricing": 5,
+    "Easy and seamless process": 8,
+    "Outstanding service from specific employees": 12,
+    "Good communication": 7,
+    "Saved money or provided good deals": 6,
+    "Loyalty scheme or added benefits": 2,
+    "Quick issue resolution": 5
+  },
+  "cons": {
+    "Hidden fees and unexpected charges": 6,
+    "Poor customer service": 5,
+    "Difficulty in cancellation process": 4,
+    "Outdated technology (dashboard, card machine)": 3,
+    "Language barriers and communication issues": 3,
+    "Lack of response or follow-up": 3,
+    "Non-compliance fees and penalties": 2,
+    "Billing and invoicing problems": 2
+  },
+  "suggestions": {
+    "Improve customer service for cancellations": 4,
+    "Update technology (dashboard, card machines)": 3,
+    "Transparency in fees and charges": 3,
+    "Better communication and follow-up": 3,
+    "Reduce or eliminate non-compliance fees": 2,
+    "Improve language and communication skills of staff": 2,
+    "Provide clearer documentation and invoices": 2,
+    "Streamline the cancellation process": 2
+  }
+}
+```

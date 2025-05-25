@@ -1,0 +1,40 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 28,
+    "Efficient and quick setup/process": 12,
+    "Helpful and knowledgeable staff": 15,
+    "Proactive communication": 6,
+    "Good rates and pricing": 5,
+    "User-friendly devices/app": 4,
+    "Reliable payment processing": 3,
+    "Professional and friendly interactions": 8,
+    "Prompt issue resolution": 5,
+    "Long-term satisfaction": 4
+  },
+  "cons": {
+    "Poor customer service": 6,
+    "Technical issues with devices": 5,
+    "Lack of communication/updates": 4,
+    "Complex or unclear setup process": 3,
+    "Payment delays/holds": 3,
+    "Inconsistent information": 2,
+    "High charges/fees": 2,
+    "Device size/battery issues": 2,
+    "Difficulty in account termination": 2,
+    "Unprofessional staff behavior": 1
+  },
+  "suggestions": {
+    "Improve customer service responsiveness": 4,
+    "Provide clearer setup instructions": 3,
+    "Enhance device functionality (battery life, size)": 3,
+    "Offer more transparent pricing/charges": 2,
+    "Improve communication consistency": 2,
+    "Streamline account termination process": 2,
+    "Add more transaction flexibility": 1,
+    "Better invoicing system": 1,
+    "Reduce payment processing time": 1,
+    "Provide more training for staff": 1
+  }
+}
+```

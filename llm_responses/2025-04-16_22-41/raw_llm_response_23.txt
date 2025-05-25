@@ -1,0 +1,35 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 22,
+    "Helpful and professional staff": 15,
+    "Efficient and quick service": 10,
+    "Easy setup and onboarding": 6,
+    "Good support and follow-up": 5,
+    "Competitive rates and charges": 4,
+    "User-friendly platform": 3,
+    "Reliable service": 2,
+    "Integration with other services": 2
+  },
+  "cons": {
+    "Poor customer service": 5,
+    "Technical issues with card machines": 4,
+    "Billing and contract issues": 4,
+    "Account setup problems": 3,
+    "Lack of support for technical problems": 3,
+    "Delayed payments": 2,
+    "High and unexpected fees": 2,
+    "Unresponsive staff": 2
+  },
+  "suggestions": {
+    "Improve technical support": 4,
+    "Transparent billing and contracts": 3,
+    "Better communication and updates": 3,
+    "Faster resolution of issues": 2,
+    "More reliable card machines": 2,
+    "Lower fees and charges": 2,
+    "Improve onboarding process": 1,
+    "Provide more training for users": 1
+  }
+}
+```

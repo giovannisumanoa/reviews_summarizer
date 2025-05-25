@@ -1,0 +1,21 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 6,
+    "Efficient and effective service": 3,
+    "Competitive rates": 1,
+    "Clear and simple explanations": 2,
+    "Helpful and personable service": 2
+  },
+  "cons": {
+    "Difficulty updating company details": 1,
+    "High prices": 1,
+    "Poor responsiveness to requests": 2
+  },
+  "suggestions": {
+    "Improve system update processes": 1,
+    "Lower prices": 1,
+    "Faster response times": 1
+  }
+}
+```

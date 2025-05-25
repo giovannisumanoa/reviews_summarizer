@@ -1,0 +1,33 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 25,
+    "Professional and knowledgeable staff": 15,
+    "Smooth and efficient process": 12,
+    "Competitive rates and cost savings": 8,
+    "Quick and responsive support": 10,
+    "Helpful and friendly staff": 7,
+    "Easy to use and set up": 6,
+    "Reliable and trustworthy service": 5,
+    "Great communication": 4,
+    "Effective problem resolution": 3
+  },
+  "cons": {
+    "Poor customer service": 5,
+    "Hidden fees (e.g., PCI noncompliance)": 4,
+    "Long wait times and call transfers": 3,
+    "Lack of transparency in billing": 2,
+    "Issues with account setup or missing information": 2,
+    "Money not banked or missing funds": 1,
+    "Difficulty reaching support": 1
+  },
+  "suggestions": {
+    "Improve telephone customer service": 3,
+    "Increase transparency in fees and billing": 2,
+    "Faster execution on amendments or changes": 1,
+    "Better communication during setup": 1,
+    "Provide clearer instructions or documentation": 1,
+    "Establish a complaints department": 1
+  }
+}
+```

@@ -1,0 +1,30 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 32,
+    "Helpful and knowledgeable staff": 25,
+    "Efficient and quick service": 18,
+    "Professional and courteous staff": 15,
+    "Competitive rates and cost savings": 12,
+    "Smooth and easy setup/transition": 10,
+    "Responsive and proactive support": 9,
+    "Clear and concise communication": 8,
+    "Reliable and trustworthy service": 7,
+    "Personalized and attentive service": 6
+  },
+  "cons": {
+    "High rates": 2,
+    "Clunky and outdated portal": 1,
+    "Lack of follow-up when closing account": 1,
+    "Difficulty in resolving technical issues": 1,
+    "Unreliable card payment machine": 1
+  },
+  "suggestions": {
+    "Revamp the portal for better user experience": 1,
+    "Improve follow-up process for account closures": 1,
+    "Enhance technical support for hardware issues": 1,
+    "Provide more transparent fee explanations": 1,
+    "Offer more competitive rates consistently": 1
+  }
+}
+```

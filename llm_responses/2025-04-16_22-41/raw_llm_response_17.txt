@@ -1,0 +1,40 @@
+```json
+{
+  "pros": {
+    "Excellent customer service": 28,
+    "Quick and efficient service": 12,
+    "Helpful and knowledgeable staff": 15,
+    "Competitive pricing and good rates": 6,
+    "Smooth and easy setup process": 7,
+    "Professional and friendly staff": 8,
+    "Prompt communication": 9,
+    "Reliable payment systems": 4,
+    "Personalized service": 5,
+    "Effective problem resolution": 6
+  },
+  "cons": {
+    "Poor customer service": 6,
+    "Hidden fees and charges": 4,
+    "Contract renewal without notice": 3,
+    "Faulty equipment": 4,
+    "Slow response to complaints": 3,
+    "Unreliable chargeback system": 2,
+    "Lack of transparency in pricing": 3,
+    "Technical issues with online portal": 2,
+    "Delays in equipment delivery": 3,
+    "High admin charges": 2
+  },
+  "suggestions": {
+    "Improve customer service responsiveness": 4,
+    "Provide better transparency in pricing and contracts": 5,
+    "Enhance technical support and equipment reliability": 4,
+    "Waive admin charges for unjustified chargebacks": 2,
+    "Improve communication during contract renewals": 3,
+    "Offer more competitive rates": 3,
+    "Streamline the setup and activation process": 2,
+    "Provide better online portal functionality": 2,
+    "Ensure timely delivery of equipment": 3,
+    "Improve chargeback notification system": 2
+  }
+}
+```
